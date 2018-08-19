@@ -10,5 +10,7 @@ public class _00_Horoscope {
 	//    a different horoscope based on the Zodiac's state.
 	
 	// 3. Make a main method to test your method
-	
+	public static void main(String[] args) {
+		
+	}
 }
