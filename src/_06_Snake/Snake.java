@@ -59,7 +59,7 @@ public class Snake {
 
 	public void reset(Location loc) {
 		//1. clear the snake
-		
+		snake.clear();
 		//2. set the location of the head
 		
 		//3. add the head to the snake
@@ -67,8 +67,7 @@ public class Snake {
 	}
 
 	public boolean isOutOfBounds() {
-		//1. complete the method so it returns true if the head of the snake is outsize of the window
-		//   and false otherwise
+		if(getHeadLocation)
 		
 		return false;
 	}
@@ -76,7 +75,9 @@ public class Snake {
 	public boolean isHeadCollidingWithBody() {
 		//1. complete the method so it returns true if the head is located
 		//   in the same location as any other body segment
-		
+		for (SnakeSegment ss : snake) {
+			ss.getLocation()
+		}
 		return false;
 	}
 

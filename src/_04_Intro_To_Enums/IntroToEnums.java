@@ -5,7 +5,7 @@ public class IntroToEnums {
 	// categorize a set of states for one by one referencing 
 	
 	// The syntax for an enum is like this:
-	enum DataTypes {
+	public enum DataTypes {
 		// Every entry must be unique
 		INTEGER, DOUBLE, BOOLEAN, LONG, SHORT, BYTE
 	}

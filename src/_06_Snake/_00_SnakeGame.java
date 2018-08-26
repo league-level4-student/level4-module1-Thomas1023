@@ -75,18 +75,33 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 
 	public void startGame() {
 		//1. Save the instructions for the game in the following string variable.
-		String instructions = "";
+		String instructions = "whats this";
 		
 		String[] options = new String[] { "Expert", "Moderate", "Beginner" };
 		int input = JOptionPane.showOptionDialog(null, instructions, "Snake", 0, -1, null, options, 0);
 
 		String choice = options[input];
-		
+		switch(choice) {
+		// Notice that 'DataTypes.' is not requires when accessing categories
+		case "Expert":{
+			timer.setDelay(20);
+break;
+}
+		case "Moderate":{
+			timer.setDelay(40);
+break;
+}
+		case "Beginner":{
+			timer.setDelay(60);
+break;
+		}
+		}
 		//2. Use a switch statement to determine which difficulty was chosen.
 		//   Use timer.setDelay(delay) with different numbers to change the speed
 		//   of the game. The smaller the number, the faster it goes.
 
 		//3. start the timer
+		timer.start();
 	}
 
 	public static void main(String[] args) {
@@ -98,12 +113,38 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 
 	}
-
+//	left arrow	37
+//	up arrow		38
+//	right arrow	39
+//	down arrow	40
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//1. Use a switch statement on e.getKeyCode()
 		//   to determine which key was pressed.
+		switch(e.getKeyCode()) {
+		// Notice that 'DataTypes.' is not requires when accessing categories
+		case  KeyEvent.VK_LEFT:{
+snake.setDirection(Direction.LEFT);			
+break;
+}
+		case  KeyEvent.VK_UP:{
+			snake.setDirection(Direction.UP);			
+break;
+}
+		case KeyEvent.VK_RIGHT:{
+			snake.setDirection(Direction.RIGHT);			
+break;
+}
 		
+		case KeyEvent.VK_DOWN:{
+			snake.setDirection(Direction.DOWN);			
+break;
+		}
+		case KeyEvent.VK_SPACE:{
+			snake.feed();		
+break;
+		}
+		}
 		// if an arrow key is pressed, set the snake's 
 		// direction accordingly
 		
@@ -120,16 +161,27 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	}
 
 	private void gameOver() {
-		
+		timer.stop();
 		//1. stop the timer
 		
 		//2. tell the user their snake is dead
-		
+		JOptionPane.showMessageDialog(null, "HE dead");
 		//3. ask them if they want to play again.
-		
+String temp= JOptionPane.showInputDialog("play again y/n");
 		//4. if they want to play again
 		//   reset the snake and the food and start the timer
 		//   else, exit the game
+switch(temp) {
+// Notice that 'DataTypes.' is not requires when accessing categories
+case  "y":{
+snake.setDirection(Direction.LEFT);			
+break;
+}
+case  "n":{
+	snake.setDirection(Direction.UP);			
+break;
+}
+}
 		
 	}
 
@@ -141,13 +193,17 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//1. update the snake
-
+snake.update();
 		//2. if the snake is colliding with its own body 
 		//   or if the snake is out of bounds, call gameOver
+if(snake.isHeadCollidingWithBody()) {
+	gameOver();
+}
 
 		//3. if the location of the head is equal to the location of the food,
 		// 	 feed the snake and set the food location
-
-		//4. call panel.repaint();
+//if(Snake.getHeadLocation=) {
+//}
+		panel.repaint();
 	}
 }
