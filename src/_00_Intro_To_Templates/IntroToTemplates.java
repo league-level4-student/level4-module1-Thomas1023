@@ -10,7 +10,8 @@ import java.util.Random;
 public class IntroToTemplates {
 	public static void main(String[] args) {
 		IntroToTemplates i = new IntroToTemplates();
-		
+		System.out.println('y'+0);
+		if()
 		String s = "taco";
 		//Here we are calling calcStuff and passing in a String
 		i.calcStuff(s, 5);
