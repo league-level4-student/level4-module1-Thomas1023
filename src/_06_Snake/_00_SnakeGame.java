@@ -38,8 +38,9 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	private Location foodLocation;
 
 	public _00_SnakeGame() {
+		
 		snake = new Snake(new Location(WIDTH / 2, HEIGHT / 2));
-
+snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 		window = new JFrame("Snake");
 		panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
@@ -69,6 +70,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 		window.setVisible(true);
 
 		setFoodLocation();
+		
 
 		startGame();
 	}
@@ -154,21 +156,27 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 	}
 
 	private void setFoodLocation() {
+		System.out.println("setfood");
 		// 1. Create a new Location object that is set to a random location
 		Random rand = new Random();
 
-		int a = rand.nextInt(HEIGHT)+1;
-		int b = rand.nextInt(WIDTH)+1;
-		Location loc = new Location(a, b);
+		int a = rand.nextInt(HEIGHT);
+		int b = rand.nextInt(WIDTH);
+		Location locs = new Location(a, b);
 		// 2. set the foodLocation variable equal to the Location object you just
 		// created.
 		// use the snake's isLocationOnSnake method to make sure you don't put the food
 		// on the snake
-		if (snake.isLocationOnSnake(loc)) {
-			setFoodLocation();
-		} else {
-			foodLocation = loc;
-		}
+		System.out.println("feed!");
+		snake.isLocationOnSnake(locs);
+		while (snake.isLocationOnSnake(locs)) {
+			System.out.println("feed!");
+			 a = rand.nextInt(HEIGHT);
+			 b = rand.nextInt(WIDTH);
+			 locs = new Location(a, b);
+			
+		} 
+		foodLocation=locs;
 	}
 
 	private void gameOver() {
