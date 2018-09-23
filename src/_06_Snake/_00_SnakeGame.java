@@ -35,7 +35,7 @@ public class _00_SnakeGame implements ActionListener, KeyListener {
 
 	private Timer timer;
 
-	private Location foodLocation;
+	private static Location foodLocation;
 
 	public _00_SnakeGame() {
 		
@@ -53,8 +53,7 @@ snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 				g2.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 				g2.setColor(FOOD_COLOR);
-				g2.drawOval(foodLocation.x * WINDOW_SCALE, foodLocation.y * WINDOW_SCALE, Snake.BODY_SIZE,
-						Snake.BODY_SIZE);
+				g2.drawOval(foodLocation.x * WINDOW_SCALE, foodLocation.y * WINDOW_SCALE, Snake.BODY_SIZE,Snake.BODY_SIZE);
 				snake.draw(g);
 			}
 		};
@@ -122,6 +121,7 @@ snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 	// down arrow 40
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		// 1. Use a switch statement on e.getKeyCode()
 		// to determine which key was pressed.
 		switch (e.getKeyCode()) {
@@ -168,7 +168,6 @@ snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 		// use the snake's isLocationOnSnake method to make sure you don't put the food
 		// on the snake
 		System.out.println("feed!");
-		snake.isLocationOnSnake(locs);
 		while (snake.isLocationOnSnake(locs)) {
 			System.out.println("feed!");
 			 a = rand.nextInt(HEIGHT);
@@ -193,17 +192,26 @@ snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 		switch (temp) {
 		// Notice that 'DataTypes.' is not requires when accessing categories
 		case "y": {
-			snake.setDirection(Direction.LEFT);
+			startGame();
+			snake = new Snake(new Location(WIDTH / 2, HEIGHT / 2));
+			snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
+				
+		
 			break;
 		}
 		case "n": {
-			snake.setDirection(Direction.UP);
 			break;
 		}
 		}
 
 	}
-
+	public void onFood() {
+		if(foodLocation.equals(snake.getHeadLocation())) {
+			snake.feed();
+			setFoodLocation();
+		}
+			
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -211,7 +219,12 @@ snake.l=new Location(Math.floorDiv(WIDTH, 2),Math.floorDiv(HEIGHT, 2));
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(snake.isOutOfBounds()) {
+			gameOver();
+		}
+		
 		// 1. update the snake
+		onFood();
 		snake.update();
 		// 2. if the snake is colliding with its own body
 		// or if the snake is out of bounds, call gameOver
